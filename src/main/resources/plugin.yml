@@ -1,0 +1,12 @@
+name: KitBattleAddon
+version: 1.0.0
+main: com.aermini.kitbattleaddon.KitBattleAddon=
+author: aermini
+
+commands:
+  kitbattleaddon:
+    usage: /kitbattleaddon <addspawn|list|remove|reload>
+    permission: kitbattleaddon.admin
+permissions:
+  kitbattleaddon.admin:
+    default: op
