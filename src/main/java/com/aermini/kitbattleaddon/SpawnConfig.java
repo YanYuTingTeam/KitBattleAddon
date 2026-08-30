@@ -10,6 +10,9 @@ public class SpawnConfig {
     private final KitBattleAddon plugin;
     private final List<Location> spawns = new ArrayList<>();
     private final Random random = new Random();
+    private int wdtime;
+    private String wdmsg;
+    private String hitwdmsg;
     public SpawnConfig(KitBattleAddon plugin) {
         this.plugin = plugin;
     }
@@ -18,6 +21,9 @@ public class SpawnConfig {
         spawns.clear();
         plugin.saveDefaultConfig();
         plugin.reloadConfig();
+        wdtime = plugin.getConfig().getInt("wdtime", 3000);
+        wdmsg = plugin.getConfig().getString("wdmsg", "&a&l无敌状态将于&a&l{wdtime}&a&l秒后结束！");
+        hitwdmsg = plugin.getConfig().getString("hitwdmsg", "&b&l烟雨庭 &r&7>>&c&l该玩家处于无敌状态！");
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("spawns");
         if (section == null) return;
         for (String key : section.getKeys(false)) {
@@ -80,4 +86,7 @@ public class SpawnConfig {
     public List<Location> getSpawns() {
         return Collections.unmodifiableList(spawns);
     }
+    public int getWdtime() { return wdtime; }
+    public String getWdmsg() { return wdmsg; }
+    public String getHitwdmsg() { return hitwdmsg; }
 }

@@ -1,6 +1,5 @@
 package com.aermini.kitbattleaddon;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -75,7 +74,11 @@ public class KitSelectListener implements Listener {
             }
             final Player p = player;
             final Location dest = spawn.clone();
-            if (p.isOnline()) p.teleport(dest);
+            if (p.isOnline()) {
+                p.teleport(dest);
+                long wdtimeMs = plugin.getSpawnConfig().getWdtime();
+                plugin.getInvincibilityTracker().setInvincible(p, wdtimeMs);
+            }
         } catch (Exception e) {
             plugin.getLogger().log(Level.WARNING, "Error handling kit selection", e);
         }

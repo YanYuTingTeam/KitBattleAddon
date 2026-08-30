@@ -1,6 +1,6 @@
 name: KitBattleAddon
 version: 1.0.0
-main: com.aermini.kitbattleaddon.KitBattleAddon=
+main: com.aermini.kitbattleaddon.KitBattleAddon
 author: aermini
 
 commands:

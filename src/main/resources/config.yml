@@ -1,1 +1,4 @@
+wdtime: 3000
+wdmsg: "&a&l无敌状态将于&c&l{wdtime}&a&l秒后结束！"
+hitwdmsg: "&b&l烟雨庭 &r&7>>&c&l该玩家处于无敌状态！"
 spawns: {}
