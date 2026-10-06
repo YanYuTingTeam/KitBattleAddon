@@ -30,6 +30,8 @@ public class AddonCommand implements CommandExecutor {
                 return handleList(sender);
             case "remove":
                 return handleRemove(sender, args);
+            case "setlobby":
+                return handleSetLobby(sender, args);
             case "reload":
                 return handleReload(sender);
             default:
@@ -102,11 +104,38 @@ public class AddonCommand implements CommandExecutor {
         return true;
     }
 
+    private boolean handleSetLobby(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("§c[KitBattleAddon] §7Players only.");
+            return true;
+        }
+        if (args.length < 2 || !(args[1].equalsIgnoreCase("pos1") || args[1].equalsIgnoreCase("pos2"))) {
+            sender.sendMessage("§c[KitBattleAddon] §7Usage: /kitbattleaddon setlobby <pos1|pos2>");
+            return true;
+        }
+        int index = args[1].equalsIgnoreCase("pos1") ? 1 : 2;
+        Player player = (Player) sender;
+        Location loc = player.getLocation();
+        plugin.getSpawnConfig().setLobbyPos(index, loc);
+        player.sendMessage("§a[KitBattleAddon] §7Lobby pos" + index + " set!");
+        player.sendMessage("§8  " + loc.getWorld().getName()
+                + " x=" + String.format("%.1f", loc.getX())
+                + " y=" + String.format("%.1f", loc.getY())
+                + " z=" + String.format("%.1f", loc.getZ()));
+        if (plugin.getSpawnConfig().isLobbyReady()) {
+            player.sendMessage("§a[KitBattleAddon] §7Lobby region is active!");
+        } else {
+            player.sendMessage("§7[KitBattleAddon] §7Set both pos1 and pos2 in the same world to activate the lobby.");
+        }
+        return true;
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage("§e§lKitBattleAddon §7v1.0.0");
         sender.sendMessage("§7  /kitbattleaddon addspawn §8- §fAdd current position as spawn");
         sender.sendMessage("§7  /kitbattleaddon list §8- §fList all spawns");
         sender.sendMessage("§7  /kitbattleaddon remove <#> §8- §fRemove a spawn");
+        sender.sendMessage("§7  /kitbattleaddon setlobby <pos1|pos2> §8- §fSet lobby region corner");
         sender.sendMessage("§7  /kitbattleaddon reload §8- §fReload config");
     }
 }

@@ -37,7 +37,7 @@ public class InvincibilityTracker implements Listener {
         return true;
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
         Player victim = (Player) e.getEntity();
